@@ -121,9 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 guestList.classList.add('active');
                 filtered.forEach(g => {
                     const li = document.createElement('li');
-                    li.textContent = g.name;
                     if (g.attending !== null) {
-                        li.textContent += " ✓ (Svart)";
+                        li.innerHTML = `<span class="lang-no">${g.name} ✓ (Svart)</span><span class="lang-en">${g.name} ✓ (RSVP'd)</span>`;
+                    } else {
+                        li.textContent = g.name;
                     }
                     
                     li.addEventListener('click', () => {
@@ -202,7 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.innerHTML = `
                     <span>${member.name}</span>
                     <button class="btn-small ${member.attending !== null ? 'answered' : ''}">
-                        ${member.attending !== null ? 'Endre svar' : 'Svar nå'}
+                        <span class="lang-no">${member.attending !== null ? 'Endre svar' : 'Svar nå'}</span>
+                        <span class="lang-en">${member.attending !== null ? 'Change RSVP' : 'RSVP now'}</span>
                     </button>
                 `;
                 li.querySelector('button').addEventListener('click', () => {
