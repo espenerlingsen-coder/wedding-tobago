@@ -123,19 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         li.textContent += " ✓ (Svart)";
                     }
                     
-                    let clickTimer = null;
                     li.addEventListener('click', () => {
-                        if (clickTimer) {
-                            clearTimeout(clickTimer);
-                            clickTimer = null;
-                            openRsvpModal(g);
-                        } else {
-                            clickTimer = setTimeout(() => {
-                                clickTimer = null;
-                                guestSearch.value = g.name;
-                                guestList.classList.remove('active');
-                            }, 250);
-                        }
+                        guestSearch.value = g.name;
+                        openRsvpModal(g);
                     });
 
                     guestList.appendChild(li);
