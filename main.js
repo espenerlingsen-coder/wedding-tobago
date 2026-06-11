@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- RSVP & Supabase Logic ---
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+const SUPABASE_URL = 'https://wqtbotfqxdaeujiwvorh.supabase.co/rest/v1/';
+const SUPABASE_KEY = 'sb_publishable__Uzxsen_TzgQLRvd4s5MFg_AzRtLAWK';
 
 // Mock data as fallback
 let guests = [
