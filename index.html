@@ -278,21 +278,23 @@
                 <p class="subtitle text-center lang-no">Vi håper dere kan feire dagen med oss! Vennligst gi beskjed innen 1. januar 2027.</p>
                 <p class="subtitle text-center lang-en">We hope you can celebrate with us! Please let us know by January 1st, 2027.</p>
                 
-                <form class="rsvp-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Takk for svaret! / Thank you for your RSVP!');">
-                    <div class="form-group">
-                        <label for="name">
-                            <span class="lang-no">Navn på gjest(er)</span>
-                            <span class="lang-en">Name of guest(s)</span>
-                        </label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">
-                            <span class="lang-no">E-postadresse</span>
-                            <span class="lang-en">Email address</span>
-                        </label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
+                <div class="rsvp-search-container">
+                    <input type="text" id="guestSearch" class="guest-search-input" placeholder="Søk etter ditt navn... / Search your name...">
+                    <ul id="guestList" class="guest-list">
+                        <!-- Dynamically populated -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modals for RSVP -->
+        <div id="rsvpModal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <span class="close-modal" id="closeRsvpModal">&times;</span>
+                <h3 class="lang-no" id="rsvpModalNameNo">Svar for [Navn]</h3>
+                <h3 class="lang-en" id="rsvpModalNameEn">RSVP for [Name]</h3>
+                <form id="singleRsvpForm">
+                    <input type="hidden" id="guestId">
                     <div class="form-group">
                         <label>
                             <span class="lang-no">Deltakelse</span>
@@ -301,13 +303,13 @@
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="attending" value="yes" required>
-                                <span class="lang-no">Ja, vi gleder oss!</span>
-                                <span class="lang-en">Yes, we can't wait!</span>
+                                <span class="lang-no">Ja, jeg kommer!</span>
+                                <span class="lang-en">Yes, I'm attending!</span>
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="attending" value="no">
-                                <span class="lang-no">Beklager, vi kan ikke komme</span>
-                                <span class="lang-en">Sorry, we cannot attend</span>
+                                <span class="lang-no">Beklager, jeg kan ikke</span>
+                                <span class="lang-en">Sorry, I can't attend</span>
                             </label>
                         </div>
                     </div>
@@ -319,12 +321,29 @@
                         <textarea id="dietary" name="dietary" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn-submit">
-                        <span class="lang-no">Send Svar</span>
-                        <span class="lang-en">Send RSVP</span>
+                        <span class="lang-no">Lagre Svar</span>
+                        <span class="lang-en">Save RSVP</span>
                     </button>
                 </form>
             </div>
-        </section>
+        </div>
+
+        <div id="householdModal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <span class="close-modal" id="closeHouseholdModal">&times;</span>
+                <h3 class="lang-no">Svar for resten av reisefølget?</h3>
+                <h3 class="lang-en">RSVP for the rest of your party?</h3>
+                <p class="lang-no" style="margin-bottom: 1.5rem;">Vi ser at du reiser med flere. Vil du svare for dem også?</p>
+                <p class="lang-en" style="margin-bottom: 1.5rem;">We see you are travelling with others. Would you like to RSVP for them too?</p>
+                <ul id="householdList" class="household-list">
+                    <!-- Dynamically populated -->
+                </ul>
+                <button class="btn-submit btn-secondary" id="skipHouseholdBtn" style="margin-top: 1.5rem; background: #8A9A86;">
+                    <span class="lang-no">Nei, hopp over</span>
+                    <span class="lang-en">No, skip</span>
+                </button>
+            </div>
+        </div>
 
         <section id="info" class="section bg-dark text-light reveal">
             <div class="container text-center">
@@ -378,6 +397,7 @@
         </p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="main.js"></script>
 </body>
 </html>

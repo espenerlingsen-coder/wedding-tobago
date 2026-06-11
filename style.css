@@ -608,3 +608,150 @@ body[data-lang="en"] .lang-no {
 .btn-submit:hover {
     background: var(--clr-green-light);
 }
+
+/* Guest Search & RSVP Modals */
+.rsvp-search-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    position: relative;
+}
+
+.guest-search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--clr-green-light);
+    border-radius: 30px;
+    outline: none;
+    font-family: var(--font-body);
+    transition: var(--transition-smooth);
+}
+
+.guest-search-input:focus {
+    border-color: var(--clr-green-dark);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.guest-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 0.5rem;
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+
+.guest-list.active {
+    display: block;
+}
+
+.guest-list li {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.guest-list li:last-child {
+    border-bottom: none;
+}
+
+.guest-list li:hover {
+    background: var(--clr-bg-sand);
+    color: var(--clr-green-dark);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 53, 49, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    transform: translateY(20px);
+    transition: var(--transition-smooth);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--clr-text-dark);
+    transition: var(--transition-smooth);
+}
+
+.close-modal:hover {
+    color: var(--clr-green-dark);
+    transform: scale(1.1);
+}
+
+.household-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.household-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--clr-bg-sand);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    background: var(--clr-green-dark);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-small:hover {
+    background: var(--clr-green-light);
+}
+
+.btn-small.answered {
+    background: var(--clr-ocean);
+}
