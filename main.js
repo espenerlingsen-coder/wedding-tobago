@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- RSVP & Supabase Logic ---
-const SUPABASE_URL = 'https://wqtbotfqxdaeujiwvorh.supabase.co/rest/v1/';
+const SUPABASE_URL = 'https://wqtbotfqxdaeujiwvorh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__Uzxsen_TzgQLRvd4s5MFg_AzRtLAWK';
 
 // Mock data as fallback
@@ -80,6 +80,9 @@ if (window.supabase && SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE') {
 async function loadGuests() {
     if (supabaseClient) {
         const { data, error } = await supabaseClient.from('guests').select('*');
+        if (error) {
+            console.error("Supabase Error:", error);
+        }
         if (data && data.length > 0) guests = data;
     }
 }
