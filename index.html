@@ -353,19 +353,30 @@
                     <input type="hidden" id="guestId">
                     <div class="form-group">
                         <label>
-                            <span class="lang-no">Deltakelse</span>
-                            <span class="lang-en">Attendance</span>
+                            <span class="lang-no">Hvilke dager deltar du?</span>
+                            <span class="lang-en">Which days will you attend?</span>
                         </label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="attending" value="yes" required>
-                                <span class="lang-no">Ja, jeg kommer!</span>
-                                <span class="lang-en">Yes, I'm attending!</span>
+                        <div class="checkbox-group" style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem; text-align: left;">
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1rem;">
+                                <input type="checkbox" name="attending_friday" style="width: 20px; height: 20px; accent-color: var(--clr-green-dark);">
+                                <div>
+                                    <span class="lang-no" style="display: block;">Fredag: Strandhopping & Middag</span>
+                                    <span class="lang-en" style="display: block;">Friday: Beach & Dinner</span>
+                                </div>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" name="attending" value="no">
-                                <span class="lang-no">Beklager, jeg kan ikke</span>
-                                <span class="lang-en">Sorry, I can't attend</span>
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1rem;">
+                                <input type="checkbox" name="attending_saturday" style="width: 20px; height: 20px; accent-color: var(--clr-green-dark);">
+                                <div>
+                                    <span class="lang-no" style="display: block;">Lørdag: Bryllupsdagen</span>
+                                    <span class="lang-en" style="display: block;">Saturday: The Wedding Day</span>
+                                </div>
+                            </label>
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1rem;">
+                                <input type="checkbox" name="attending_sunday" style="width: 20px; height: 20px; accent-color: var(--clr-green-dark);">
+                                <div>
+                                    <span class="lang-no" style="display: block;">Søndag: Båttur</span>
+                                    <span class="lang-en" style="display: block;">Sunday: Boat Trip</span>
+                                </div>
                             </label>
                         </div>
                     </div>

@@ -65,11 +65,11 @@ const SUPABASE_KEY = 'sb_publishable__Uzxsen_TzgQLRvd4s5MFg_AzRtLAWK';
 
 // Mock data as fallback
 let guests = [
-    { id: 1, name: "Espen Erlingsen", household_id: 1, attending: null, dietary: "" },
-    { id: 2, name: "Sonya Erlingsen", household_id: 1, attending: null, dietary: "" },
-    { id: 3, name: "Ola Nordmann", household_id: 2, attending: null, dietary: "" },
-    { id: 4, name: "Kari Nordmann", household_id: 2, attending: null, dietary: "" },
-    { id: 5, name: "Enslig Gjest", household_id: 3, attending: null, dietary: "" }
+    { id: 1, name: "Espen Erlingsen", household_id: 1, has_responded: false, attending_friday: false, attending_saturday: false, attending_sunday: false, dietary: "" },
+    { id: 2, name: "Sonya Erlingsen", household_id: 1, has_responded: false, attending_friday: false, attending_saturday: false, attending_sunday: false, dietary: "" },
+    { id: 3, name: "Ola Nordmann", household_id: 2, has_responded: false, attending_friday: false, attending_saturday: false, attending_sunday: false, dietary: "" },
+    { id: 4, name: "Kari Nordmann", household_id: 2, has_responded: false, attending_friday: false, attending_saturday: false, attending_sunday: false, dietary: "" },
+    { id: 5, name: "Enslig Gjest", household_id: 3, has_responded: false, attending_friday: false, attending_saturday: false, attending_sunday: false, dietary: "" }
 ];
 
 let supabaseClient = null;
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 guestList.classList.add('active');
                 filtered.forEach(g => {
                     const li = document.createElement('li');
-                    if (g.attending !== null) {
+                    if (g.has_responded) {
                         li.innerHTML = `<span class="lang-no">${g.name} ✓ (Svart)</span><span class="lang-en">${g.name} ✓ (RSVP'd)</span>`;
                     } else {
                         li.textContent = g.name;
@@ -153,9 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpModalNameEn.textContent = `RSVP for ${guest.name}`;
         
         rsvpForm.reset();
-        if (guest.attending !== null) {
-            rsvpForm.elements['attending'].value = guest.attending ? 'yes' : 'no';
-        }
+        rsvpForm.elements['attending_friday'].checked = guest.attending_friday;
+        rsvpForm.elements['attending_saturday'].checked = guest.attending_saturday;
+        rsvpForm.elements['attending_sunday'].checked = guest.attending_sunday;
         dietaryInput.value = guest.dietary || '';
         
         guestList.classList.remove('active');
@@ -178,14 +178,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const attending = rsvpForm.elements['attending'].value === 'yes';
+            const attending_friday = rsvpForm.elements['attending_friday'].checked;
+            const attending_saturday = rsvpForm.elements['attending_saturday'].checked;
+            const attending_sunday = rsvpForm.elements['attending_sunday'].checked;
             const dietary = dietaryInput.value;
             
-            currentGuest.attending = attending;
+            currentGuest.has_responded = true;
+            currentGuest.attending_friday = attending_friday;
+            currentGuest.attending_saturday = attending_saturday;
+            currentGuest.attending_sunday = attending_sunday;
             currentGuest.dietary = dietary;
             
             if (supabaseClient) {
-                await supabaseClient.from('guests').update({ attending, dietary }).eq('id', currentGuest.id);
+                await supabaseClient.from('guests').update({ 
+                    has_responded: true, 
+                    attending_friday, 
+                    attending_saturday, 
+                    attending_sunday, 
+                    dietary 
+                }).eq('id', currentGuest.id);
             }
             
             rsvpModal.classList.remove('active');
@@ -202,9 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span>${member.name}</span>
-                    <button class="btn-small ${member.attending !== null ? 'answered' : ''}">
-                        <span class="lang-no">${member.attending !== null ? 'Endre svar' : 'Svar nå'}</span>
-                        <span class="lang-en">${member.attending !== null ? 'Change RSVP' : 'RSVP now'}</span>
+                    <button class="btn-small ${member.has_responded ? 'answered' : ''}">
+                        <span class="lang-no">${member.has_responded ? 'Endre svar' : 'Svar nå'}</span>
+                        <span class="lang-en">${member.has_responded ? 'Change RSVP' : 'RSVP now'}</span>
                     </button>
                 `;
                 li.querySelector('button').addEventListener('click', () => {
