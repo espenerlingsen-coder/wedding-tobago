@@ -219,3 +219,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// --- Countdown Logic ---
+const weddingDate = new Date("2027-05-01T16:00:00-04:00").getTime();
+const countdownTimer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        const els = ['days', 'hours', 'minutes', 'seconds'];
+        els.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.innerText = "00";
+        });
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const updateEl = (id, val) => {
+        const el = document.getElementById(id);
+        if(el) el.innerText = val.toString().padStart(2, '0');
+    };
+    
+    updateEl("days", days);
+    updateEl("hours", hours);
+    updateEl("minutes", minutes);
+    updateEl("seconds", seconds);
+}, 1000);

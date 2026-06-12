@@ -755,3 +755,44 @@ body[data-lang="en"] .lang-no {
 .btn-small.answered {
     background: var(--clr-ocean);
 }
+
+/* Countdown Clock */
+.time-box {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.time-number {
+    font-family: var(--ff-primary);
+    font-size: 3rem;
+    color: var(--clr-green-dark);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+.time-label {
+    font-family: var(--ff-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--clr-text-light);
+}
+@media (max-width: 600px) {
+    #clock-container {
+        gap: 1rem !important;
+    }
+    .time-box {
+        min-width: 80px;
+        padding: 1rem;
+    }
+    .time-number {
+        font-size: 2rem;
+    }
+    .time-label {
+        font-size: 0.8rem;
+    }
+}
