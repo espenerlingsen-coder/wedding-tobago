@@ -797,3 +797,43 @@ body[data-lang="en"] .lang-no {
         font-size: 0.8rem;
     }
 }
+
+/* Bildekarusell */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 1rem;
+}
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+.carousel-img {
+    flex: 0 0 auto;
+    width: 85vw;
+    max-width: 600px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    scroll-snap-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+.carousel-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+@media (min-width: 768px) {
+    .carousel-img {
+        width: 60vw;
+        height: 500px;
+    }
+}
