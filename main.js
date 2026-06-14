@@ -153,9 +153,40 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpModalNameEn.textContent = `RSVP for ${guest.name}`;
         
         rsvpForm.reset();
-        rsvpForm.elements['attending_friday'].checked = guest.attending_friday;
-        rsvpForm.elements['attending_saturday'].checked = guest.attending_saturday;
-        rsvpForm.elements['attending_sunday'].checked = guest.attending_sunday;
+        
+        const rsvpEmailInput = document.getElementById('rsvpEmail');
+        if (rsvpEmailInput) {
+            rsvpEmailInput.value = guest.email || localStorage.getItem('rsvp_email') || '';
+        }
+
+        const isDeclined = guest.has_responded && !guest.attending_friday && !guest.attending_saturday && !guest.attending_sunday;
+        const cannotAttendInput = document.getElementById('cannotAttend');
+        const daysGroup = document.getElementById('daysAttendingGroup');
+        const dayInputs = rsvpForm.querySelectorAll('input[type="checkbox"]:not(#cannotAttend)');
+
+        function toggleDays(declined) {
+            if (daysGroup) {
+                daysGroup.style.opacity = declined ? '0.5' : '1';
+                daysGroup.style.pointerEvents = declined ? 'none' : 'auto';
+            }
+            dayInputs.forEach(input => {
+                input.disabled = declined;
+                if (declined) input.checked = false;
+            });
+        }
+
+        if (cannotAttendInput) {
+            cannotAttendInput.checked = isDeclined;
+            toggleDays(isDeclined);
+            cannotAttendInput.onchange = (e) => toggleDays(e.target.checked);
+        }
+
+        if (!isDeclined) {
+            rsvpForm.elements['attending_friday'].checked = guest.attending_friday;
+            rsvpForm.elements['attending_saturday'].checked = guest.attending_saturday;
+            rsvpForm.elements['attending_sunday'].checked = guest.attending_sunday;
+        }
+        
         dietaryInput.value = guest.dietary || '';
         
         guestList.classList.remove('active');
@@ -178,12 +209,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const attending_friday = rsvpForm.elements['attending_friday'].checked;
-            const attending_saturday = rsvpForm.elements['attending_saturday'].checked;
-            const attending_sunday = rsvpForm.elements['attending_sunday'].checked;
+            
+            const cannotAttendInput = document.getElementById('cannotAttend');
+            const isDeclined = cannotAttendInput && cannotAttendInput.checked;
+            
+            const attending_friday = isDeclined ? false : rsvpForm.elements['attending_friday'].checked;
+            const attending_saturday = isDeclined ? false : rsvpForm.elements['attending_saturday'].checked;
+            const attending_sunday = isDeclined ? false : rsvpForm.elements['attending_sunday'].checked;
             const dietary = dietaryInput.value;
             
+            const rsvpEmailInput = document.getElementById('rsvpEmail');
+            const email = rsvpEmailInput ? rsvpEmailInput.value : '';
+            if (email) {
+                localStorage.setItem('rsvp_email', email);
+            }
+            
             currentGuest.has_responded = true;
+            currentGuest.email = email;
             currentGuest.attending_friday = attending_friday;
             currentGuest.attending_saturday = attending_saturday;
             currentGuest.attending_sunday = attending_sunday;
@@ -192,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (supabaseClient) {
                 await supabaseClient.from('guests').update({ 
                     has_responded: true, 
+                    email: email,
                     attending_friday, 
                     attending_saturday, 
                     attending_sunday, 

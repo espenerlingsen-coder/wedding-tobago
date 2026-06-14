@@ -376,6 +376,13 @@
                 <form id="singleRsvpForm">
                     <input type="hidden" id="guestId">
                     <div class="form-group">
+                        <label for="rsvpEmail" style="font-weight: 500; display: block; margin-bottom: 0.5rem; text-align: left;">
+                            <span class="lang-no">E-postadresse (påkrevd)</span>
+                            <span class="lang-en">Email address (required)</span>
+                        </label>
+                        <input type="email" id="rsvpEmail" name="email" required placeholder="din.epost@eksempel.no" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; box-sizing: border-box;">
+                    </div>
+                    <div class="form-group" id="daysAttendingGroup">
                         <label>
                             <span class="lang-no">Hvilke dager deltar du?</span>
                             <span class="lang-en">Which days will you attend?</span>
@@ -403,6 +410,15 @@
                                 </div>
                             </label>
                         </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+                        <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1rem;">
+                            <input type="checkbox" id="cannotAttend" name="cannot_attend" style="width: 20px; height: 20px; accent-color: var(--clr-green-dark);">
+                            <div>
+                                <span class="lang-no" style="display: block; font-weight: 500;">Beklager, jeg kan ikke være med</span>
+                                <span class="lang-en" style="display: block; font-weight: 500;">Sorry, I cannot attend</span>
+                            </div>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="dietary">
