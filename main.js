@@ -169,6 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 daysGroup.style.opacity = declined ? '0.5' : '1';
                 daysGroup.style.pointerEvents = declined ? 'none' : 'auto';
             }
+            if (rsvpEmailInput) {
+                rsvpEmailInput.required = !declined;
+            }
             dayInputs.forEach(input => {
                 input.disabled = declined;
                 if (declined) input.checked = false;
