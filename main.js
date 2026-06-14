@@ -262,3 +262,22 @@ const countdownTimer = setInterval(() => {
     updateEl("minutes", minutes);
     updateEl("seconds", seconds);
 }, 1000);
+
+// Carousel navigation
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('carouselContainer');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+
+    if (container && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            const scrollAmount = container.clientWidth * 0.8;
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const scrollAmount = container.clientWidth * 0.8;
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    }
+});
