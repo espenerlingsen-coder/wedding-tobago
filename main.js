@@ -43,20 +43,50 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); // Trigger once on load
 
-    // Language toggle
+    // Language toggle and IP detection
     const langToggle = document.getElementById('langToggle');
+    
+    function setLanguage(lang) {
+        document.body.setAttribute('data-lang', lang);
+        document.documentElement.lang = lang;
+        langToggle.textContent = lang === 'no' ? 'EN' : 'NO';
+        localStorage.setItem('preferredLang', lang);
+    }
+
     langToggle.addEventListener('click', () => {
         const currentLang = document.body.getAttribute('data-lang');
-        if (currentLang === 'no') {
-            document.body.setAttribute('data-lang', 'en');
-            langToggle.textContent = 'NO';
-            document.documentElement.lang = 'en';
-        } else {
-            document.body.setAttribute('data-lang', 'no');
-            langToggle.textContent = 'EN';
-            document.documentElement.lang = 'no';
-        }
+        setLanguage(currentLang === 'no' ? 'en' : 'no');
     });
+
+    // Initialize language
+    async function initLanguage() {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang) {
+            setLanguage(savedLang);
+            return;
+        }
+
+        try {
+            const response = await fetch('https://ipapi.co/json/');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.country_code === 'NO') {
+                    setLanguage('no');
+                } else {
+                    setLanguage('en');
+                }
+            } else {
+                // Fallback to English if API fails
+                setLanguage('en');
+            }
+        } catch (error) {
+            console.error('Error fetching IP data:', error);
+            // Fallback to English if network error
+            setLanguage('en');
+        }
+    }
+
+    initLanguage();
 });
 
 // --- RSVP & Supabase Logic ---
