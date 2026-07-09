@@ -27,14 +27,14 @@
             <div class="invite-frame">
                 <button class="lang-btn langToggle" style="position: absolute; top: 1.5rem; left: 2rem; font-size: 1.2rem; color: var(--clr-bg-sand); background: transparent; border: 1px solid var(--clr-bg-sand); padding: 0.2rem 0.6rem; border-radius: 4px; cursor: pointer; z-index: 10; font-family: inherit;">EN</button>
                 <button type="button" class="close-invite" id="closeInviteBtn" aria-label="Lukk / Close">&times;</button>
-                <div style="margin-top: -1rem; display: flex; flex-direction: column; align-items: center; width: 100%;">
+                <div class="invite-content-wrapper" style="margin-top: -4rem; display: flex; flex-direction: column; align-items: center; width: 100%;">
                     <div style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--clr-bg-sand); margin-bottom: 0.5rem;">S<span style="font-size: 1.5rem; margin: 0 2px; opacity: 0.8;">&</span>E</div>
                     <div style="width: 40px; height: 1px; background-color: rgba(255,255,255,0.3); margin: 0 auto 1.5rem auto;"></div>
                     
-                    <h1 class="invite-title" style="margin-bottom: 1rem; line-height: 1.1; word-wrap: break-word; hyphens: auto; width: 100%;">
-                        <span class="lang-no" style="display: block; font-size: 0.5em; opacity: 0.9; margin-bottom: 0.5rem; letter-spacing: 1px; font-family: var(--font-body); text-transform: uppercase;">Kjære</span>
-                        <span class="lang-en" style="display: block; font-size: 0.5em; opacity: 0.9; margin-bottom: 0.5rem; letter-spacing: 1px; font-family: var(--font-body); text-transform: uppercase;">Dear</span> 
-                        <span id="inviteNames" style="display: block;">Gjest</span>
+                    <h1 class="invite-title" style="margin-bottom: 1rem;">
+                        <span class="lang-no greeting-text">Kjære</span>
+                        <span class="lang-en greeting-text">Dear</span> 
+                        <span id="inviteNames" class="guest-names">Gjest</span>
                     </h1>
                     
                     <p class="invite-text" style="margin-bottom: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-wrap: balance;">

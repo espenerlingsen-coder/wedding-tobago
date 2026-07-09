@@ -1236,3 +1236,28 @@ body[data-lang="en"] .lang-no {
     font-family: var(--font-heading);
     color: var(--clr-text-dark);
 }
+
+@media (max-width: 768px) {
+    .invite-content-wrapper {
+        margin-top: -1rem !important;
+    }
+    .invite-title {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        line-height: 1.1;
+        word-wrap: break-word;
+        hyphens: auto;
+        padding: 0 0.5rem;
+    }
+    .greeting-text {
+        display: block;
+        font-size: 0.5em;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        font-family: var(--font-body);
+        text-transform: uppercase;
+    }
+    .guest-names {
+        display: block;
+    }
+}

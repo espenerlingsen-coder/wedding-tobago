@@ -699,18 +699,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (inviteNamesEl && invitePronounEl && inviteOverlay && enterSiteBtn) {
                     inviteNamesEl.textContent = formattedNames;
-                    
-                    const h1El = inviteNamesEl.closest('h1');
-                    if (h1El) {
-                        if (formattedNames.length > 20) {
-                            h1El.style.fontSize = 'clamp(1.8rem, 6vw, 2.5rem)';
-                        } else if (formattedNames.length > 12) {
-                            h1El.style.fontSize = 'clamp(2.2rem, 8vw, 3rem)';
-                        } else {
-                            h1El.style.fontSize = 'clamp(2.5rem, 10vw, 3.5rem)';
-                        }
-                    }
-
                     invitePronounEl.textContent = pronoun;
                     
                     inviteOverlay.classList.remove('hidden');
