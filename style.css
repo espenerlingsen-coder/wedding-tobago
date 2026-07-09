@@ -1238,11 +1238,16 @@ body[data-lang="en"] .lang-no {
 }
 
 @media (max-width: 768px) {
+    .invite-frame {
+        justify-content: flex-start !important;
+        padding-top: 5rem !important;
+        overflow-y: auto;
+    }
     .invite-content-wrapper {
-        margin-top: -1rem !important;
+        margin-top: 0 !important;
     }
     .invite-title {
-        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        font-size: var(--dynamic-font-size, clamp(1.8rem, 8vw, 2.5rem)) !important;
         line-height: 1.1;
         word-wrap: break-word;
         hyphens: auto;
