@@ -1251,7 +1251,7 @@ body[data-lang="en"] .lang-no {
         margin-top: 0;
     }
     .invite-title {
-        font-size: var(--dynamic-font-size, clamp(1.8rem, 8vw, 2.5rem));
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
         line-height: 1.1;
         word-wrap: break-word;
         hyphens: auto;
@@ -1268,5 +1268,6 @@ body[data-lang="en"] .lang-no {
     }
     .guest-names {
         display: block;
+        font-size: var(--dynamic-font-size, inherit);
     }
 }
