@@ -1237,17 +1237,21 @@ body[data-lang="en"] .lang-no {
     color: var(--clr-text-dark);
 }
 
+.invite-content-wrapper {
+    margin-top: -4rem;
+}
+
 @media (max-width: 768px) {
     .invite-frame {
-        justify-content: flex-start !important;
-        padding-top: 5rem !important;
+        justify-content: flex-start;
+        padding-top: 4rem;
         overflow-y: auto;
     }
     .invite-content-wrapper {
-        margin-top: 0 !important;
+        margin-top: 0;
     }
     .invite-title {
-        font-size: var(--dynamic-font-size, clamp(1.8rem, 8vw, 2.5rem)) !important;
+        font-size: var(--dynamic-font-size, clamp(1.8rem, 8vw, 2.5rem));
         line-height: 1.1;
         word-wrap: break-word;
         hyphens: auto;
