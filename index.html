@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonya & Espen - Tobago 2027</title>
     <meta name="description" content="Bryllupsnettside for Sonya og Espen på Tobago, 1. mai 2027.">
+    <!-- Delingsforhåndsvisning (WhatsApp, Messenger, Facebook osv.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sonya-espen2027.eu/">
+    <meta property="og:title" content="Sonya & Espen – Tobago, 1. mai 2027">
+    <meta property="og:description" content="Vi gifter oss på Tobago! Alt om bryllupet, reisen og RSVP. / We are getting married in Tobago! All about the wedding, travel and RSVP.">
+    <meta property="og:image" content="https://sonya-espen2027.eu/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,6 +21,61 @@
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body data-lang="no">
+    <!-- Digital Invitation Overlay -->
+    <div id="inviteOverlay" class="invite-overlay hidden">
+        <div class="invite-card">
+            <div class="invite-frame">
+                <button class="lang-btn langToggle" style="position: absolute; top: 1.5rem; left: 2rem; font-size: 1.2rem; color: var(--clr-bg-sand); background: transparent; border: 1px solid var(--clr-bg-sand); padding: 0.2rem 0.6rem; border-radius: 4px; cursor: pointer; z-index: 10; font-family: inherit;">EN</button>
+                <button type="button" class="close-invite" id="closeInviteBtn" aria-label="Lukk / Close">&times;</button>
+                <div style="margin-top: -4rem; display: flex; flex-direction: column; align-items: center;">
+                    <div style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--clr-bg-sand); margin-bottom: 0.5rem;">S<span style="font-size: 1.5rem; margin: 0 2px; opacity: 0.8;">&</span>E</div>
+                    <div style="width: 40px; height: 1px; background-color: rgba(255,255,255,0.3); margin: 0 auto 1.5rem auto;"></div>
+                    
+                    <h1 class="invite-title" style="margin-bottom: 1rem;">
+                        <span class="lang-no">Kjære</span>
+                        <span class="lang-en">Dear</span> 
+                        <span id="inviteNames">Gjest</span>
+                    </h1>
+                    
+                    <p class="invite-text" style="margin-bottom: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-wrap: balance;">
+                        <span class="lang-no">
+                            Et nytt kapittel starter under palmene med sand mellom tærne. Vi vil gjerne feire bryllupet vårt sammen med <span id="invitePronoun">deg/dere</span> på Tobago.
+                        </span>
+                        <span class="lang-en">
+                            A new chapter begins under the palm trees with sand between our toes. We would love to celebrate our wedding with you in Tobago.
+                        </span>
+                    </p>
+                    
+                    <p style="font-family: var(--font-heading); font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--clr-bg-sand); margin: 1.5rem 0;">
+                        <span class="lang-no">30. april – 2. mai 2027</span>
+                        <span class="lang-en">April 30<sup style="font-size: 0.6em;">th</sup> – May 2<sup style="font-size: 0.6em;">nd</sup>, 2027</span>
+                    </p>
+
+                    <p style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--clr-bg-sand); margin: -0.5rem 0 1.5rem 0; opacity: 0.9;">
+                        Ohana Villa &bull; Tobago
+                    </p>
+
+                    <p style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-bottom: 2rem; opacity: 0.9;">
+                        Sonya & Espen
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-top: 10vh; width: 100%; max-width: 280px;">
+                        <button class="btn-primary" id="inviteRsvpBtn" style="width: 100%; background: #1d2f21; border-color: #1d2f21; padding: 1rem; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                            RSVP
+                        </button>
+                        <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-bg-sand); margin-top: -0.5rem; margin-bottom: 0.5rem;">
+                            <span class="lang-no">S.U. innen 1. januar 2027</span>
+                            <span class="lang-en">RSVP by Jan 1st, 2027</span>
+                        </div>
+                        <button class="btn-secondary" id="enterSiteBtn" style="width: 100%; padding: 0.8rem;">
+                            <span class="lang-no">Gå til bryllupssiden</span>
+                            <span class="lang-en">Go to wedding site</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar" id="navbar">
         <div class="nav-brand">S & E</div>
         <ul class="nav-links">
@@ -20,12 +84,12 @@
             <li><a href="#bryllupet"><span class="lang-no">Bryllupet</span><span class="lang-en">The Wedding</span></a></li>
             <li><a href="#reise"><span class="lang-no">Reise</span><span class="lang-en">Travel</span></a></li>
             <li><a href="#overnatting"><span class="lang-no">Overnatting</span><span class="lang-en">Accommodation</span></a></li>
-            <li style="display: none;"><a href="#rsvp">RSVP</a></li>
+            <li><a href="#rsvp">RSVP</a></li>
             <li><a href="#info"><span class="lang-no">Praktisk Info</span><span class="lang-en">Practical Info</span></a></li>
         </ul>
         <div class="nav-actions">
-            <button id="langToggle" class="lang-btn">EN</button>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <button class="lang-btn langToggle">EN</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
         </div>
     </nav>
 
@@ -158,8 +222,8 @@
                     <div class="timeline-item">
                         <h3 class="lang-no">Mars 2023 – Det store lasagnehavariet</h3>
                         <h3 class="lang-en">March 2023 – The great lasagna disaster</h3>
-                        <p class="lang-no">Vi drar på hyttetur med jobben og tar på oss det ærefulle oppdraget å servere lasagne til 45 personer. Logistikken svikter en smule, og de siste i køen må pent dype lasagnerester med knekkebrød. Heldigvis reddes stemningen av sauna, snøbading, skiturer og masse latter.</p>
-                        <p class="lang-en">We go on a cabin trip with work and take on the honorable task of serving lasagna for 45 people. The logistics fail a bit, and the last people in line have to politely dip leftover lasagna with crispbread. Luckily, the mood is saved by sauna, snow bathing, skiing, and lots of laughter.</p>
+                        <p class="lang-no">Vi drar på hyttetur med jobben og tar på oss det ærefulle oppdraget å servere lasagne til 45 personer. Når kun halvparten av gjestene har fått mat, går vi tom for lasagne. Vi må spe på med kjøttdeig og knekkebrød. Heldigvis reddes stemningen av sauna, snøbading, skiturer og masse latter.</p>
+                        <p class="lang-en">We go on a cabin trip with work and take on the honorable task of serving lasagna for 45 people. When only half the guests have received food, we run out of lasagna. We have to supplement with ground beef and crispbread. Luckily, the mood is saved by sauna, snow bathing, skiing, and lots of laughter.</p>
                     </div>
 
                     <div class="timeline-item">
@@ -352,7 +416,7 @@
             </div>
         </section>
 
-        <section id="rsvp" class="section bg-light reveal" style="display: none;">
+        <section id="rsvp" class="section bg-light reveal">
             <div class="container">
                 <h2 class="section-title text-center">
                     <span class="lang-no">Svar utbes (RSVP)</span>
@@ -373,7 +437,7 @@
         <!-- Modals for RSVP -->
         <div id="rsvpModal" class="modal-overlay hidden">
             <div class="modal-content">
-                <span class="close-modal" id="closeRsvpModal">&times;</span>
+                <button type="button" class="close-modal" id="closeRsvpModal" aria-label="Lukk / Close">&times;</button>
                 <h3 class="lang-no" id="rsvpModalNameNo">Svar for [Navn]</h3>
                 <h3 class="lang-en" id="rsvpModalNameEn">RSVP for [Name]</h3>
                 <form id="singleRsvpForm">
@@ -430,6 +494,32 @@
                         </label>
                         <textarea id="dietary" name="dietary" rows="3"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="guestPhoto" style="display: block; margin-bottom: 0.5rem; text-align: left; line-height: 1.4;">
+                            <span class="lang-no">
+                                <strong style="font-weight: 600; display: block; margin-bottom: 0.2rem; color: var(--clr-text-dark);">Hjelp oss å fylle gjestetreet!</strong>
+                                <span style="font-size: 0.85rem; font-weight: normal; color: rgba(60, 70, 60, 0.8);">Legg ved et bilde av deg selv her, så dukker det automatisk opp i bryllupstreet vårt på nettsiden slik at alle vet hvem de skal feire med.</span>
+                            </span>
+                            <span class="lang-en">
+                                <strong style="font-weight: 600; display: block; margin-bottom: 0.2rem; color: var(--clr-text-dark);">Help us fill the guest tree!</strong>
+                                <span style="font-size: 0.85rem; font-weight: normal; color: rgba(60, 70, 60, 0.8);">Attach a picture of yourself here, and it will automatically appear in our wedding tree on the website so everyone knows who they'll be celebrating with.</span>
+                            </span>
+                        </label>
+                        <div id="photoUploadRow" class="photo-upload-row">
+                            <div id="photoPreview" class="photo-preview"></div>
+                            <label for="guestPhoto" class="btn-photo">
+                                <span class="photo-label-new">
+                                    <span class="lang-no">Velg bilde</span>
+                                    <span class="lang-en">Choose photo</span>
+                                </span>
+                                <span class="photo-label-change">
+                                    <span class="lang-no">Endre bilde</span>
+                                    <span class="lang-en">Change photo</span>
+                                </span>
+                            </label>
+                            <input type="file" id="guestPhoto" name="photo" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
                     <button type="submit" class="btn-submit">
                         <span class="lang-no">Lagre Svar</span>
                         <span class="lang-en">Save RSVP</span>
@@ -440,7 +530,7 @@
 
         <div id="householdModal" class="modal-overlay hidden">
             <div class="modal-content">
-                <span class="close-modal" id="closeHouseholdModal">&times;</span>
+                <button type="button" class="close-modal" id="closeHouseholdModal" aria-label="Lukk / Close">&times;</button>
                 <h3 class="lang-no">Svar for resten av reisefølget?</h3>
                 <h3 class="lang-en">RSVP for the rest of your party?</h3>
                 <p class="lang-no" style="margin-bottom: 1.5rem;">Vi ser at du reiser med flere. Vil du svare for dem også?</p>
@@ -455,6 +545,98 @@
             </div>
         </div>
 
+        <!-- Guest Profile Modal -->
+        <div id="guestProfileModal" class="modal-overlay hidden">
+            <div class="modal-content text-center" style="max-width: 300px; padding: 2rem;">
+                <button type="button" class="close-modal" id="closeGuestProfileModal" aria-label="Lukk / Close">&times;</button>
+                <div id="guestProfileImageContainer" style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem auto; border: 2px solid var(--clr-bg-sand); box-shadow: 0 4px 10px rgba(0,0,0,0.1); background-color: var(--clr-bg-sand); display: flex; align-items: center; justify-content: center;">
+                    <!-- Image or Initials -->
+                </div>
+                <h3 id="guestProfileName" style="margin-bottom: 0.5rem; font-family: var(--font-heading); color: var(--clr-text-dark);">[Name]</h3>
+                <p id="guestProfileRelation" style="color: rgba(60, 70, 60, 0.8); font-size: 1rem; margin-bottom: 0; font-style: italic;">[Relation]</p>
+            </div>
+        </div>
+
+        <!-- Thank You Modal -->
+        <div id="thanksModal" class="modal-overlay hidden">
+            <div class="modal-content text-center" style="max-width: 360px;">
+                <div class="thanks-check">
+                    <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="26" cy="26" r="24"/>
+                        <path d="M15 27l8 8 15-16"/>
+                    </svg>
+                </div>
+                <h3 class="lang-no" style="font-size: 1.6rem; color: var(--clr-green-dark); margin-bottom: 0.5rem;">Takk for svaret!</h3>
+                <h3 class="lang-en" style="font-size: 1.6rem; color: var(--clr-green-dark); margin-bottom: 0.5rem;">Thank you for your RSVP!</h3>
+                <p class="lang-no" style="opacity: 0.8;">Svaret ditt er registrert.</p>
+                <p class="lang-en" style="opacity: 0.8;">Your response has been registered.</p>
+            </div>
+        </div>
+
+        <!-- Tours Modal -->
+        <div id="toursModal" class="modal-overlay hidden">
+            <div class="modal-content" style="max-width: 500px; text-align: left;">
+                <button type="button" class="close-modal" id="closeToursModal" aria-label="Lukk / Close">&times;</button>
+                <h3 class="lang-no" style="margin-bottom: 1.5rem; color: var(--clr-text-dark);">Turer og utflukter</h3>
+                <h3 class="lang-en" style="margin-bottom: 1.5rem; color: var(--clr-text-dark);">Tours and Excursions</h3>
+                
+                <div style="margin-bottom: 1rem;">
+                    <strong>Island Girl Tours - David Rajpaulsingh</strong><br>
+                    (868) 460-5439 or US number (954) 998-3112<br>
+                    @islandgirltourstt (social media)<br>
+                    Islandgirltourstt@gmail.com
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <strong>Trini Surfer - Alan Charles</strong><br>
+                    (868) 361-2365<br>
+                    @trini_surfer (social media)<br>
+                    Email: alancharles1985@icloud.com
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <strong>Waterholics Tobago</strong> - (868) 317-1607<br>
+                    email: tobagowaterholics@gmail.com
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <strong>Hans Phillips Tours and Transport</strong> - hansphillipstours@yahoo.com<br>
+                    (868) 759-2880 or 361-8486
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <strong>Phil Williams Tours and Transport</strong> - (868) 688-7956
+                </div>
+                
+                <p style="font-size: 0.95rem; font-style: italic; color: rgba(60, 70, 60, 0.8); line-height: 1.4;">
+                    <span class="lang-no">Både Hans og Phil tilbyr også shuttle-, transport- og taxitjenester. Island Girl og Trini Surfer gjør ikke dette utenom transport som kreves for turene deres.</span>
+                    <span class="lang-en">Both Hans and Phil also provide shuttle, transport and taxi services. Island Girl or Trini Surfer do not outside of transportation required for their tours.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Bryllupstre Section -->
+        <section id="bryllupstre" class="section reveal" style="background: var(--clr-bg-light); padding: 4rem 0;">
+            <div class="container">
+                <h2 class="section-title text-center">
+                    <span class="lang-no">Vårt Bryllupstre</span>
+                    <span class="lang-en">Our Wedding Tree</span>
+                </h2>
+                <p class="text-center" style="margin-bottom: 2rem; color: var(--clr-text-light-alt);">
+                    <span class="lang-no">De som har takket ja til å feire dagen med oss</span>
+                    <span class="lang-en">Guests who have accepted our invitation</span>
+                </p>
+                <div class="tree-container" id="weddingTreeContainer">
+                    <img src="wedding_tree.png" alt="Wedding Tree" class="tree-bg-img">
+                    <div class="tree-trunk-frame">
+                        <img src="couple_tree.jpg" alt="Sonya & Espen">
+                    </div>
+                    <div id="treeLeaves">
+                        <!-- Guest avatars will be appended here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="info" class="section bg-dark text-light reveal">
             <div class="container text-center">
                 <h2 class="section-title">
@@ -471,8 +653,8 @@
                     <div class="info-box">
                         <h4 class="lang-no">Penger & Valuta</h4>
                         <h4 class="lang-en">Money & Currency</h4>
-                        <p class="lang-no">Du kan bruke kredittkort på de fleste steder, men du må ha kontanter til mindre restauranter, strandbarer osv. Ta ut TTD i minibank på flyplassen.</p>
-                        <p class="lang-en">You can use credit cards in most places, but you need cash for smaller restaurants, beach bars, etc. Withdraw TTD at the airport ATM.</p>
+                        <p class="lang-no">Du kan bruke kredittkort på de fleste steder, men du må ha kontanter til mindre restauranter, strandbarer osv. Ta ut TTD i minibank på flyplassen. Amerikanske dollar aksepteres også mange steder.</p>
+                        <p class="lang-en">You can use credit cards in most places, but you need cash for smaller restaurants, beach bars, etc. Withdraw TTD at the airport ATM. US dollars are also widely accepted.</p>
                     </div>
                     <div class="info-box">
                         <h4 class="lang-no">Transport: Leiebil</h4>
@@ -481,10 +663,22 @@
                         <p class="lang-en">To move around freely, we highly recommend renting a car at the airport (Hertz, Europcar, Avis). It is much easier than taking a taxi. Just remember that they drive on the left side of the road in Tobago.</p>
                     </div>
                     <div class="info-box">
+                        <h4 class="lang-no">Transport: Taxi</h4>
+                        <h4 class="lang-en">Transport: Taxi</h4>
+                        <p class="lang-no">Joe's Taxi Service<br>(868) 710-4790<br>Aksepterer bankkort og kredittkort som betaling</p>
+                        <p class="lang-en">Joe's Taxi Service<br>(868) 710-4790<br>Accept Debit and Credit cards as payment</p>
+                    </div>
+                    <div class="info-box">
+                        <h4 class="lang-no">Turer og utflukter</h4>
+                        <h4 class="lang-en">Tours and Excursions</h4>
+                        <p class="lang-no">Det er mange ulike turoperatører på Tobago. <a href="#" class="openToursModal" style="color: var(--clr-bg-sand); font-weight: bold;">Trykk her for mer informasjon.</a></p>
+                        <p class="lang-en">There are many different tour operators in Tobago. <a href="#" class="openToursModal" style="color: var(--clr-bg-sand); font-weight: bold;">Click here for more information.</a></p>
+                    </div>
+                    <div class="info-box">
                         <h4 class="lang-no">Kleskode</h4>
                         <h4 class="lang-en">Dress Code</h4>
-                        <p class="lang-no">Vi kommer tilbake til dette senere.</p>
-                        <p class="lang-en">We will get back to this later.</p>
+                        <p class="lang-no">Beach Formal – Vi ønsker en elegant feiring. <a href="#" class="openDressCodeModal" style="color: var(--clr-bg-sand); font-weight: bold;">Se her for mer informasjon.</a></p>
+                        <p class="lang-en">Beach Formal – We wish for an elegant celebration. <a href="#" class="openDressCodeModal" style="color: var(--clr-bg-sand); font-weight: bold;">Click here for more information.</a></p>
                     </div>
                     <div class="info-box">
                         <h4 class="lang-no">Vær</h4>
@@ -512,11 +706,45 @@
                 <p class="subtitle lang-en" style="margin-bottom: 2rem;">Do you have any questions? Feel free to reach out to us!</p>
                 <div style="font-size: 1.2rem; line-height: 2;">
                     <p><strong><span class="lang-no">E-post</span><span class="lang-en">Email</span>:</strong> <a href="mailto:espenerlingsen@gmail.com" style="color: var(--clr-green-dark); text-decoration: none; border-bottom: 1px solid var(--clr-green-dark);">espenerlingsen@gmail.com</a></p>
-                    <p><strong>Espen:</strong> <a href="tel:+4741447761" style="color: var(--clr-text-dark); text-decoration: none;">+47 41447761</a></p>
-                    <p><strong>Sonya:</strong> <a href="tel:+4748860720" style="color: var(--clr-text-dark); text-decoration: none;">+47 48860720</a></p>
+                    <p><strong>Espen:</strong> <a href="tel:+4741447761" style="color: var(--clr-text-dark); text-decoration: none;">+47 41447761</a> &nbsp;<a href="https://wa.me/4741447761" target="_blank" style="color: var(--clr-green-dark); font-size: 1rem; text-decoration: none; border-bottom: 1px solid var(--clr-green-dark);">WhatsApp</a></p>
+                    <p><strong>Sonya:</strong> <a href="tel:+4748860720" style="color: var(--clr-text-dark); text-decoration: none;">+47 48860720</a> &nbsp;<a href="https://wa.me/4748860720" target="_blank" style="color: var(--clr-green-dark); font-size: 1rem; text-decoration: none; border-bottom: 1px solid var(--clr-green-dark);">WhatsApp</a></p>
                 </div>
             </div>
         </section>
+        <!-- Dress Code Modal -->
+        <div id="dressCodeModal" class="modal-overlay hidden">
+            <div class="modal-content" style="max-width: 500px; text-align: left;">
+                <button type="button" class="close-modal" id="closeDressCodeModal" aria-label="Lukk / Close">&times;</button>
+                <h3 class="lang-no" style="margin-bottom: 1.5rem; color: var(--clr-text-dark);">Kleskode: Beach Formal</h3>
+                <h3 class="lang-en" style="margin-bottom: 1.5rem; color: var(--clr-text-dark);">Dress Code: Beach Formal</h3>
+                
+                <div class="lang-no" style="text-align: left; margin-bottom: 1.5rem;">
+                    <strong>For menn:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <li>Dress</li>
+                        <li>Lyse farger og lette stoffer som lin er et godt alternativ.</li>
+                    </ul>
+                    <strong>For kvinner:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Pene maxi- eller midikjoler</li>
+                        <li>Vi anbefaler blokkhæler eller kilehæler, da det er treplattinger og utendørs stier rundt villaen.</li>
+                    </ul>
+                </div>
+                <div class="lang-en" style="text-align: left; margin-bottom: 1.5rem;">
+                    <strong>For Men:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+                        <li>Suits</li>
+                        <li>Lighter colours and lightweight fabrics like linen are welcome.</li>
+                    </ul>
+                    <strong>For Women:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Elevated maxi or midi dresses</li>
+                        <li>Block heels and wedges are recommended given the wooden decking and outdoor pathways at the villa.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="footer">
