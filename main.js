@@ -682,6 +682,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const inviteId = urlParams.get('invite');
     
     if (inviteId) {
+        function setupInviteScrollHint(inviteOverlay) {
+            const inviteFrame = inviteOverlay?.querySelector('.invite-frame');
+            if (!inviteFrame || inviteFrame.dataset.scrollHintReady === 'true') return;
+
+            inviteFrame.dataset.scrollHintReady = 'true';
+            inviteFrame.classList.toggle('has-scrolled', inviteFrame.scrollTop > 8);
+            inviteFrame.addEventListener('scroll', () => {
+                if (inviteFrame.scrollTop > 8) {
+                    inviteFrame.classList.add('has-scrolled');
+                } else {
+                    inviteFrame.classList.remove('has-scrolled');
+                }
+            }, { passive: true });
+        }
+
         function showInviteFallback() {
             const inviteNamesEl = document.getElementById('inviteNames');
             const invitePronounEl = document.getElementById('invitePronoun');
@@ -697,6 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
             invitePronounEl.textContent = document.documentElement.lang === 'no' ? 'deg/dere' : 'you';
             inviteOverlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            setupInviteScrollHint(inviteOverlay);
 
             const closeInvite = () => {
                 inviteOverlay.classList.add('hidden');
@@ -760,6 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     inviteOverlay.classList.remove('hidden');
                     document.body.style.overflow = 'hidden'; // Stop background scrolling
+                    setupInviteScrollHint(inviteOverlay);
                     
                     const closeInvite = () => {
                         inviteOverlay.classList.add('hidden');

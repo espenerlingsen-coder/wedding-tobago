@@ -1332,7 +1332,6 @@ body[data-lang="en"] .lang-no {
         max-width: 100% !important;
     }
     .invite-date {
-        font-size: clamp(2.25rem, 10.5vw, 3.35rem) !important;
         line-height: 1.25;
         margin: 0.65rem 0 0.55rem !important;
     }
@@ -1375,6 +1374,12 @@ body[data-lang="en"] .lang-no {
         text-transform: uppercase;
         animation: scrollHintPulse 1.8s ease-in-out infinite;
         pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .invite-frame.has-scrolled .invite-scroll-hint {
+        opacity: 0;
+        visibility: hidden;
+        animation: none;
     }
     .scroll-chevron {
         font-size: 1rem;
