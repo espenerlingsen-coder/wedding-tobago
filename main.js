@@ -491,6 +491,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            if (!rsvpForm.checkValidity()) {
+                rsvpForm.reportValidity();
+                return;
+            }
             
             const cannotAttendInput = document.getElementById('cannotAttend');
             const isDeclined = cannotAttendInput && cannotAttendInput.checked;
@@ -559,15 +564,26 @@ document.addEventListener('DOMContentLoaded', () => {
             currentGuest.photo_url = photo_url;
             
             if (supabaseClient) {
-                await supabaseClient.from('guests').update({ 
-                    has_responded: true, 
-                    email: email,
-                    attending_friday, 
-                    attending_saturday, 
-                    attending_sunday, 
-                    dietary,
-                    photo_url
-                }).eq('id', currentGuest.id);
+                submitBtn.disabled = true;
+                try {
+                    const { error } = await supabaseClient.from('guests').update({ 
+                        has_responded: true, 
+                        email: email,
+                        attending_friday, 
+                        attending_saturday, 
+                        attending_sunday, 
+                        dietary,
+                        photo_url
+                    }).eq('id', currentGuest.id);
+
+                    if (error) throw error;
+                } catch (error) {
+                    console.error("Feil ved lagring av RSVP:", error);
+                    alert(document.documentElement.lang === 'no' ? 'Klarte ikke lagre svaret akkurat nå. Prøv igjen, eller kontakt oss direkte.' : 'We could not save your RSVP right now. Please try again, or contact us directly.');
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.disabled = false;
+                    return;
+                }
             }
             
             // Re-render tree to show the newly accepted guest immediately
@@ -592,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span>${member.first_name} ${member.last_name}</span>
-                    <button class="btn-small ${member.has_responded ? 'answered' : ''}">
+                    <button type="button" class="btn-small ${member.has_responded ? 'answered' : ''}">
                         <span class="lang-no">${member.has_responded ? 'Endre svar' : 'Svar nå'}</span>
                         <span class="lang-en">${member.has_responded ? 'Change RSVP' : 'RSVP now'}</span>
                     </button>
@@ -666,6 +682,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const inviteId = urlParams.get('invite');
     
     if (inviteId) {
+        function showInviteFallback() {
+            const inviteNamesEl = document.getElementById('inviteNames');
+            const invitePronounEl = document.getElementById('invitePronoun');
+            const inviteOverlay = document.getElementById('inviteOverlay');
+            const enterSiteBtn = document.getElementById('enterSiteBtn');
+            const inviteRsvpBtn = document.getElementById('inviteRsvpBtn');
+            const closeInviteBtn = document.getElementById('closeInviteBtn');
+
+            if (!inviteNamesEl || !invitePronounEl || !inviteOverlay || !enterSiteBtn) return;
+
+            inviteNamesEl.textContent = document.documentElement.lang === 'no' ? 'Gjest' : 'Guest';
+            inviteNamesEl.style.setProperty('--dynamic-font-size', 'clamp(2.5rem, 8vw, 3.2rem)');
+            invitePronounEl.textContent = document.documentElement.lang === 'no' ? 'deg/dere' : 'you';
+            inviteOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            const closeInvite = () => {
+                inviteOverlay.classList.add('hidden');
+                document.body.style.overflow = '';
+                document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            enterSiteBtn.addEventListener('click', closeInvite, { once: true });
+            if (closeInviteBtn) closeInviteBtn.addEventListener('click', closeInvite, { once: true });
+            if (inviteRsvpBtn) inviteRsvpBtn.addEventListener('click', closeInvite, { once: true });
+        }
+
         async function processInvite() {
             // Wait for Supabase to fetch if it hasn't finished
             if (!guests || guests.length <= 5) {
@@ -673,6 +716,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const householdId = parseInt(inviteId, 10);
+            if (Number.isNaN(householdId)) {
+                showInviteFallback();
+                return;
+            }
+
             const invitedGuests = guests.filter(g => g.household_id === householdId);
             
             if (invitedGuests.length > 0) {
@@ -734,7 +782,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     const li = document.createElement('li');
                                     li.innerHTML = `
                                         <span>${member.first_name} ${member.last_name}</span>
-                                        <button class="btn-small ${member.has_responded ? 'answered' : ''}">
+                                            <button type="button" class="btn-small ${member.has_responded ? 'answered' : ''}">
                                             <span class="lang-no">${member.has_responded ? 'Endre svar' : 'Svar nå'}</span>
                                             <span class="lang-en">${member.has_responded ? 'Change RSVP' : 'RSVP now'}</span>
                                         </button>
@@ -750,6 +798,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
                 }
+            } else {
+                showInviteFallback();
             }
         }
         processInvite();
