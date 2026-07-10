@@ -1291,14 +1291,31 @@ body[data-lang="en"] .lang-no {
     margin-top: -4rem;
 }
 
+.invite-scroll-hint {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .invite-overlay {
+        padding: 1.25rem;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .invite-card {
+        min-height: calc(100vh - 2.5rem);
+        max-height: none;
+    }
+
     .invite-frame {
         justify-content: flex-start;
-        padding-top: 4rem;
+        padding: 4rem 1.5rem 6rem;
         overflow-y: auto;
+        scroll-padding-bottom: 7rem;
     }
     .invite-content-wrapper {
         margin-top: 0;
+        min-height: 100%;
     }
     .invite-title {
         font-size: clamp(2.5rem, 8vw, 3.5rem);
@@ -1306,6 +1323,25 @@ body[data-lang="en"] .lang-no {
         word-wrap: break-word;
         hyphens: auto;
         padding: 0 0.5rem;
+        margin-bottom: 0.75rem !important;
+    }
+    .invite-text {
+        font-size: clamp(1.45rem, 5.6vw, 2rem);
+        line-height: 1.55;
+        margin-bottom: 0.75rem !important;
+        max-width: 100% !important;
+    }
+    .invite-date {
+        font-size: clamp(2.25rem, 10.5vw, 3.35rem) !important;
+        line-height: 1.25;
+        margin: 0.65rem 0 0.55rem !important;
+    }
+    .invite-venue {
+        margin: 0 0 1rem !important;
+    }
+    .invite-actions {
+        margin-top: 2rem !important;
+        padding-bottom: 1.5rem;
     }
     .greeting-text {
         display: block;
@@ -1319,6 +1355,41 @@ body[data-lang="en"] .lang-no {
     .guest-names {
         display: block;
         font-size: var(--dynamic-font-size, inherit);
+    }
+    .invite-scroll-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 1rem;
+        z-index: 5;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.75rem;
+        border: 1px solid rgba(242, 235, 225, 0.55);
+        border-radius: 999px;
+        color: var(--clr-bg-sand);
+        background: rgba(26, 33, 29, 0.55);
+        backdrop-filter: blur(4px);
+        font-size: 0.75rem;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        animation: scrollHintPulse 1.8s ease-in-out infinite;
+        pointer-events: none;
+    }
+    .scroll-chevron {
+        font-size: 1rem;
+        line-height: 1;
+    }
+}
+
+@keyframes scrollHintPulse {
+    0%, 100% {
+        opacity: 0.72;
+        transform: translate(-50%, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, 4px);
     }
 }
 
