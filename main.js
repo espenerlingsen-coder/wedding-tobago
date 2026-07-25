@@ -144,7 +144,7 @@ async function loadGuests() {
         // Hent kun kolonnene frontend trenger – aldri e-post eller diettinfo
         const { data, error } = await supabaseClient.from('guests').select(
             'id, first_name, last_name, household_id, side, relationship, has_responded, attending_friday, attending_saturday, attending_sunday, photo_url'
-        );
+        ).order('id', { ascending: true });
         if (error) {
             console.error("Supabase Error:", error);
         }
