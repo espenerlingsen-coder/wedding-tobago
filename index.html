@@ -478,7 +478,7 @@
 
         <!-- Modals for RSVP -->
         <div id="rsvpModal" class="modal-overlay hidden">
-            <div class="modal-content">
+            <div class="modal-content" id="rsvpModalContent">
                 <button type="button" class="close-modal" id="closeRsvpModal" aria-label="Lukk / Close">&times;</button>
                 <h3 class="lang-no" id="rsvpModalNameNo">Svar for [Navn]</h3>
                 <h3 class="lang-en" id="rsvpModalNameEn">RSVP for [Name]</h3>
@@ -567,6 +567,11 @@
                         <span class="lang-en">Save RSVP</span>
                     </button>
                 </form>
+            </div>
+            <div class="rsvp-scroll-hint" id="rsvpScrollHint" aria-hidden="true">
+                <span class="lang-no">Bla ned</span>
+                <span class="lang-en">Scroll</span>
+                <span class="scroll-chevron">∨</span>
             </div>
         </div>
 

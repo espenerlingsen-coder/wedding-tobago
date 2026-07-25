@@ -821,4 +821,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         processInvite();
     }
+    
+    // RSVP Modal Scroll Hint Logic
+    const rsvpModalContent = document.getElementById('rsvpModalContent');
+    const rsvpScrollHint = document.getElementById('rsvpScrollHint');
+    if (rsvpModalContent && rsvpScrollHint) {
+        rsvpModalContent.addEventListener('scroll', () => {
+            if (rsvpModalContent.scrollTop > 10) {
+                rsvpScrollHint.classList.add('hidden-hint');
+            } else {
+                rsvpScrollHint.classList.remove('hidden-hint');
+            }
+        });
+    }
 });
